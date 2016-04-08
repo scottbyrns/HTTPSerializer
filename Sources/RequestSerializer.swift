@@ -48,7 +48,7 @@ public struct RequestSerializer: S4.RequestSerializer {
             try send(data)
         case .receiver(let bodyStream):
             while !bodyStream.closed {
-                let data = try bodyStream.receive()
+                let data = try bodyStream.receive(max: Int.max)
                 try send(String(data.count, radix: 16).data)
                 try send(newLine)
                 try send(data)
